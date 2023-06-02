@@ -1,0 +1,31 @@
+body{
+    background-image: url("point3d-commercial-imaging-ltd-TEbVwp3WC0E-unsplash.jpg");
+    background-size: 1500px ;
+}
+.logdiv{
+    background-color: aquamarine;
+    border-radius: 10px;
+    width: 700px;
+    left: auto;
+    right: auto;
+    margin: auto;
+    margin-top: 100px;
+    padding: auto;
+    padding-top: 20px;
+    width: 50%;
+    padding-bottom: 20px;
+    z-index: 5;
+    box-shadow: 5px 10px #888888;
+}
+.button{
+    margin: auto;
+    left: auto;
+    right: auto;
+    padding-left: 45%;
+
+
+}
+.backhome{
+    margin-left: 15px;
+    margin-bottom: 10px;
+}

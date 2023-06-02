@@ -1,0 +1,21 @@
+
+.form{
+
+    background-color: aqua;
+    border-radius: 10px;
+    width: 700px;
+    margin-top: 70px;
+}
+.back{
+    margin-top: 15px;
+    margin-bottom: 17px;
+}
+.sub{
+    margin-bottom: 15px;
+}
+.weight{
+    margin-bottom: 20px;
+}
+.Height{
+    margin-bottom: 20px;
+}
