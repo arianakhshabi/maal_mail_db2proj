@@ -1,0 +1,40 @@
+.homepage-div {
+    border-radius: 10px;
+    background-color: #DFF8EB;
+    margin: auto;
+    width: 50%;
+    height: 400px;
+
+    width: 1500px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+  }
+  
+  .content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  button {
+    background-color: DodgerBlue;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain;
+  }

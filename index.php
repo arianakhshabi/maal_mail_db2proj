@@ -6,9 +6,9 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>kaykogym</title>
+  <title>MaaLmail</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-
+  <link rel="stylesheet" href="index.css">
 
 </head>
 <body>
@@ -50,10 +50,15 @@ if (!$conn) {
 mysqli_close($conn);
 ?>
 
-<h1>mall mail
-</h1>
+<div class="homepage-div">
+  <div class="content">
+    <h1>MaaLmail fast and secure</h1>
+    <button>Create Account</button>
+  </div>
+  <img src="img\_85ddc00d-3d00-4098-97a2-2eceb4e4e6f7.jpg" alt="Your Photo">
+</div>
 
-<h1>dfj</h1>
+
 <?php include("footer.php");?>
 
 </body>
