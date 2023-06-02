@@ -2,12 +2,12 @@
 <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
 <?php include("config.php");
     
-    $username= $_POST ['fname'];
-    $password= $_POST ['lname'];
-    $email_address= $_POST ['email'];
-    $first_name= $_POST ['tel'];
-    $last_name= $_POST ['addres'];
-    $date_of_birth= $_POST ['weight'];
+    $username= $_POST ['username'];
+    $password= $_POST ['password'];
+    $email_address= $_POST ['email_address'];
+    $first_name= $_POST ['first_name'];
+    $last_name= $_POST ['last_name'];
+    $date_of_birth= $_POST ['date_of_birth'];
     
     if (empty($fname and $password)){
       echo "<div class='alert alert-warning' role='alert'>
