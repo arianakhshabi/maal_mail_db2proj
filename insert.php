@@ -1,13 +1,15 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://getbootstrap.com/docs/5.2/assets/css/docs.css" rel="stylesheet">
 <?php include("config.php");
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $email_address = $_POST['email_address'];
+    $first_name = $_POST['first_name'];
+    $last_name = $_POST['last_name'];
+    $date_of_birth = date('Y-m-d', strtotime($_POST['date_of_birth'])); // Format the date
     
-    $username= $_POST ['username'];
-    $password= $_POST ['password'];
-    $email_address= $_POST ['email_address'];
-    $first_name= $_POST ['first_name'];
-    $last_name= $_POST ['last_name'];
-    $date_of_birth= date('Y-m-d', strtotime($_POST['date_of_birth']));;
+   
+    // Rest of your code to execute the SQL query and handle any errors
     
     if (empty($username and $password)){
       echo "<div class='alert alert-warning' role='alert'>
@@ -17,7 +19,7 @@
     else{
 
       $sql = "INSERT INTO users (username, password, email_address, first_name, last_name, date_of_birth)
-      VALUES ('$username', '$password', '$email_address','$first_name','$last_name',$date_of_birth)";
+            VALUES ('$username', '$password', '$email_address', '$first_name', '$last_name', '$date_of_birth')";
       
       if (mysqli_query($conn, $sql)) {
         echo "New record created successfully";
