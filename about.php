@@ -17,9 +17,9 @@
 <div class="about">
 
     <h1>
-        data base project <br><br>
+        data base2 project <br><br>
         modares: jenab doctor seyed danesh <br><br>
-        Ta: aqhaye qasemzadeh <br><br>
+        Ta: aqhaye danesh <br><br>
         students:Arian Akhshabi va Hamidreza Lak
        </h1>
 </div>

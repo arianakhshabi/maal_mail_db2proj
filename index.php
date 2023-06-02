@@ -53,7 +53,7 @@ mysqli_close($conn);
 <div class="homepage-div">
   <div class="content">
     <h1>MaaLmail fast and secure</h1>
-    <button>Create Account</button>
+    <a href="registerform.php"><button>Create Account</button></a>
   </div>
   <img src="img\_85ddc00d-3d00-4098-97a2-2eceb4e4e6f7.jpg" alt="Your Photo">
 </div>
