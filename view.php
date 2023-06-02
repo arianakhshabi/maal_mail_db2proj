@@ -49,9 +49,9 @@ $result = mysqli_query($conn, $sql);
         <td><?php echo $row["date_of_birth"]?></td>
         <td><?php echo $row["created_at"]?></td>
         <td><?php echo $row["updated_at"]?></td>
-        <td><button type="button" class="btn btn-outline-warning"><a class="text-warning text-decoration-none"target="_blank" href="edit.php?id=<?php echo $row["id"]?>">Edit</a></button>
+        <td><button type="button" class="btn btn-outline-warning"><a class="text-warning text-decoration-none"target="_blank" href="edit.php?id=<?php echo $row["user_id"]?>">Edit</a></button>
         </td>
-        <td><button type="button" class="btn btn-danger"><a class="text-light text-decoration-none" target="_blank" href="delete.php?id=<?php echo $row["id"]?>">Delete</a></button>
+        <td><button type="button" class="btn btn-danger"><a class="text-light text-decoration-none" target="_blank" href="delete.php?id=<?php echo $row["user_id"]?>">Delete</a></button>
         </td>
         </tr>
         <?php

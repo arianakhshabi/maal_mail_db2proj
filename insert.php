@@ -7,7 +7,7 @@
     $email_address= $_POST ['email_address'];
     $first_name= $_POST ['first_name'];
     $last_name= $_POST ['last_name'];
-    $date_of_birth= $_POST ['date_of_birth'];
+    $date_of_birth= date('Y-m-d', strtotime($_POST['date_of_birth']));;
     
     if (empty($username and $password)){
       echo "<div class='alert alert-warning' role='alert'>
