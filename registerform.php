@@ -3,6 +3,11 @@
 
 <body>
     <?php include("config.php"); ?>
+    <style>
+      body {
+        background-color: #f8dfec;
+      }
+    </style>
     <div class="container form">
         <form action="insert.php" method="post">
         <a href="login.php"><button type="button" class="btn btn-dark back" href="login.php">back</button></a>
