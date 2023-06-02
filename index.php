@@ -28,7 +28,7 @@ $conn = mysqli_connect($servername, $username, $password, $dbname);
 if (!$conn) {
   die("Connection failed: " . mysqli_connect_error());
 }
-
+//dfsmdfdkfj
 // $sql = "CREATE TABLE Users (
 //   user_id INT AUTO_INCREMENT PRIMARY KEY,
 //   username VARCHAR(50) NOT NULL,
