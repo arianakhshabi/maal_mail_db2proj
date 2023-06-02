@@ -9,7 +9,7 @@
     $last_name= $_POST ['last_name'];
     $date_of_birth= $_POST ['date_of_birth'];
     
-    if (empty($fname and $password)){
+    if (empty($username and $password)){
       echo "<div class='alert alert-warning' role='alert'>
       Please complete forms
       </div>";
@@ -17,7 +17,7 @@
     else{
 
       $sql = "INSERT INTO users (username, password, email_address, first_name, last_name, date_of_birth)
-      VALUES ('$fname', '$lname', '$email','$tel','$Addres',$weight,$height)";
+      VALUES ('$username', '$password', '$email_address','$first_name','$last_name',$date_of_birth)";
       
       if (mysqli_query($conn, $sql)) {
         echo "New record created successfully";
