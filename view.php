@@ -19,14 +19,14 @@ $result = mysqli_query($conn, $sql);
     <thead>
         <tr>
         <th scope="col">#</th>
-        <th scope="col">First</th>
-        <th scope="col">Last</th>
+        <th scope="col">Username</th>
+        <th scope="col">Password </th>
         <th scope="col">Email</th>
-        <th scope="col">Tel</th>
-        <th scope="col">Addres</th>
-        <th scope="col">Weight</th>
-        <th scope="col">Height</th>
-        <th scope="col">reg-Date</th>
+        <th scope="col">FirstName</th>
+        <th scope="col">LastName</th>
+        <th scope="col">DateofBirth </th>
+        <th scope="col">created_at</th>
+        <th scope="col">updated_at</th>
         <th scope="col">Edit</th>
         <th scope="col">Delete</th>
         
@@ -40,15 +40,15 @@ $result = mysqli_query($conn, $sql);
             while($row = mysqli_fetch_assoc($result)) {
         ?>
         <tr>
-        <th scope="row"><?php echo $row["id"]?></th>
-        <td><?php echo $row["firstname"]?></td>
-        <td><?php echo $row["lastname"]?></td>
-        <td><?php echo $row["email"]?></td>
-        <td><?php echo $row["telephone"]?></td>
-        <td><?php echo $row["Addres"]?></td>
-        <td><?php echo $row["weights"]?></td>
-        <td><?php echo $row["heights"]?></td>
-        <td><?php echo $row["reg_date"]?></td>
+        <th scope="row"><?php echo $row["user_id"]?></th>
+        <td><?php echo $row["username"]?></td>
+        <td><?php echo $row["password"]?></td>
+        <td><?php echo $row["email_address"]?></td>
+        <td><?php echo $row["first_name"]?></td>
+        <td><?php echo $row["last_name"]?></td>
+        <td><?php echo $row["date_of_birth"]?></td>
+        <td><?php echo $row["created_at"]?></td>
+        <td><?php echo $row["updated_at"]?></td>
         <td><button type="button" class="btn btn-outline-warning"><a class="text-warning text-decoration-none"target="_blank" href="edit.php?id=<?php echo $row["id"]?>">Edit</a></button>
         </td>
         <td><button type="button" class="btn btn-danger"><a class="text-light text-decoration-none" target="_blank" href="delete.php?id=<?php echo $row["id"]?>">Delete</a></button>
