@@ -22,7 +22,7 @@
     </div>
     <div class="mb-3">
         <label for="phone" class ="form-label">Phone Number</label>
-        <input type="tel" id="phone" class= "form-control" name="phone" placeholder="Enter your phone number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" required>
+        <input type="tel" id="phone" class= "form-control" name="phone" placeholder="Enter your phone number" pattern="[0]{1}[0-9]{3}[0-9]{3}[0-9]{4}" required>
     </div>
     <div class="mb-3">
         <label for="exampleInputEmail1" class="form-label">Address</label>
