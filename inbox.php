@@ -1,3 +1,14 @@
+<?php
+session_start();
+$new_user=$_SESSION["username"];
+
+include("config.php");
+
+?>
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,7 +43,7 @@
 
 <body>
   <div class="container">
-    <h1>Email Inbox</h1>
+    <h1>Email Inbox  <?php echo $new_user?></h1>
 
     <div class="row">
       <div class="col-md-4">
