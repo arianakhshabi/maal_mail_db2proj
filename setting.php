@@ -67,6 +67,26 @@ $result = mysqli_query($conn, $sql);
           <!-- Display information or settings options here -->
           <p>Some information or settings content goes here.</p>
           <h1> salam <?php echo $username; ?></h1>
+          
+          <div class="form-check form-switch">
+          <input class="form-check-input" type="checkbox" id="hide-info-checkbox" onchange="toggleSearchVisibility(this)">
+          <label class="form-check-label" for="hide-info-checkbox">Hide Information from Search</label>
+        </div>
+        <script>
+          function toggleSearchVisibility(checkbox) {
+            var hideStatus = checkbox.checked ? 'hide' : 'unhide';
+
+            // Send AJAX request to update hide_status
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+              if (this.readyState == 4 && this.status == 200) {
+                console.log('Hide status updated successfully');
+              }
+            };
+            xhttp.open('GET', 'update_hide_status.php?username=<?php echo $username; ?>&hide_status=' + hideStatus, true);
+            xhttp.send();
+          }
+        </script>
             <table class="table table-dark table-striped ">
             <thead>
                 <tr>
