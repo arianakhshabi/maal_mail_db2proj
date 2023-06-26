@@ -63,6 +63,9 @@
       
       if (mysqli_query($conn, $sql)) {
         echo "New record created successfully";
+        $hideStatus = 'unhide'; // Default hide status
+        $hideUsersQuery = "INSERT INTO hide_users (username, hide_status) VALUES ('$username', '$hideStatus')";
+    mysqli_query($conn, $hideUsersQuery);
       } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);
       }

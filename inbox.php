@@ -26,12 +26,12 @@ include("config.php");
       padding: 20px;
     }
 
-    .list-group-item {
-      border-radius: 0 !important;
-    }
+    
 
-    .list-group-item:not(:last-child) {
-      margin-bottom: 10px;
+   
+    .logout-button {
+    background-color: red;
+    color: white;
     }
 
 
@@ -52,17 +52,16 @@ include("config.php");
   <h1>Email Inbox <?php echo $new_user?></h1>
 
   <div class="row">
-    <!-- Left Div for Selecting Inbox, Sent, and Settings -->
     <div class="col-md-4">
-      <div class="list-group">
-        <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-          Inbox
-        </a>
-        <a href="#" class="list-group-item list-group-item-action">Sent</a>
-        <a href="setting.php?username=<?php echo $new_user; ?>" class="list-group-item list-group-item-action">Settings</a>
-      </div>
+    <div class="list-group">
+      <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+        Inbox
+      </a>
+      <a href="#" class="list-group-item list-group-item-action">Sent</a>
+      <a href="setting.php?username=<?php echo $new_user; ?>" class="list-group-item list-group-item-action">Settings</a>
+      <a href="logout.php" class="list-group-item list-group-item-action logout-button">Logout</a> <!-- Added Logout Button -->
     </div>
-
+  </div>
     <!-- Middle Div for Displaying Emails -->
     <div class="col-md-4">
       <?php

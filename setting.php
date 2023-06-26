@@ -18,13 +18,27 @@ $result = mysqli_query($conn, $sql);
  <!-- Bootstrap CSS -->
  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
  <link rel="stylesheet" href="setting.css">
+ <style>
+    body {
+      padding: 20px;
+    }
 
+    
+
+   
+    .logout-button {
+    background-color: red;
+    color: white;
+    }
+
+
+  </style>
 
 <nav class="navbar" style="background-color: #e3f2fd;">
   <div class="container-fluid">
     <a class="navbar-brand" href="index.php">MaaLmail</a>
-    <form class="d-flex" role="search">
-      <input class="form-control me-2" type="search" placeholder="username" aria-label="Search">
+    <form class="d-flex" role="search" action="search.php" method="GET">
+      <input class="form-control me-2" type="search" placeholder="username" aria-label="Search" name ="search">
       <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
   </div>
@@ -39,6 +53,7 @@ $result = mysqli_query($conn, $sql);
       <a href="inbox.php" class="list-group-item list-group-item-action">Inbox</a>
         <a href="#" class="list-group-item list-group-item-action">Sent</a>
         <a href="#" class="list-group-item list-group-item-action active" aria-current="true">Settings</a>
+        <a href="logout.php" class="list-group-item list-group-item-action logout-button">Logout</a> <!-- Added Logout Button -->
       </div>
     </div>
 

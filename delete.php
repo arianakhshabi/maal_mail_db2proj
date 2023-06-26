@@ -15,5 +15,5 @@
         }
 
         mysqli_close($conn);
-        header('Location: view.php');
+        header('Location: index.php');
 ?>
