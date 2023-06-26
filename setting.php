@@ -62,7 +62,7 @@ $result = mysqli_query($conn, $sql);
         <div class="col-md-3 left-div">
             <div class="list-group">
                 <a href="inbox.php" class="list-group-item list-group-item-action">Inbox</a>
-                <a href="#" class="list-group-item list-group-item-action">Sent</a>
+                <a href="sent.php" class="list-group-item list-group-item-action">Sent</a>
                 <a href="#" class="list-group-item list-group-item-action active" aria-current="true">Settings</a>
                 <a href="logout.php" class="list-group-item list-group-item-action logout-button">Logout</a>
                 <!-- Added Logout Button -->
