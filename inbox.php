@@ -1,12 +1,10 @@
 <?php
 session_start();
-$new_user=$_SESSION["username"];
+$new_user = $_SESSION["username"];
 
 include("config.php");
 
 ?>
-
-
 
 
 <!DOCTYPE html>
@@ -22,20 +20,34 @@ include("config.php");
 
   <!-- Custom styles -->
   <style>
-    body {
-      padding: 20px;
-    }
+      body {
+        padding: 20px;
+      }
 
-    
+      .logout-button {
+        background-color: red;
+        color: white;
+      }
 
-   
-    .logout-button {
-    background-color: red;
-    color: white;
-    }
+      .middle-div {
+        width: 60%;
+        height: 800px; /* Adjust the height as per your requirement */
+        overflow-y: scroll;
+        padding-left: 20px;
+        margin: 0 auto;
+      }
+
+      .left-div {
+        width: 15%;
+        position: absolute;
+        left: 20px;
+      }
+      .right-div{
+        margin-left:20px
+      }
+</style>
 
 
-  </style>
 </head>
 
 <body>
@@ -43,45 +55,58 @@ include("config.php");
   <div class="container-fluid">
     <a class="navbar-brand" href="index.php">MaaLmail</a>
     <form class="d-flex" role="search" action="search.php" method="GET">
-      <input class="form-control me-2" type="search" placeholder="username" aria-label="Search" name ="search">
+      <input class="form-control me-2" type="search" placeholder="username" aria-label="Search" name="search">
       <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
   </div>
 </nav>
 <div class="container">
-  <h1>Email Inbox <?php echo $new_user?></h1>
+  <h1>Email Inbox <?php echo $new_user ?></h1>
 
-  <div class="row">
-    <div class="col-md-4">
-    <div class="list-group">
-      <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
-        Inbox
-      </a>
-      <a href="#" class="list-group-item list-group-item-action">Sent</a>
-      <a href="setting.php?username=<?php echo $new_user; ?>" class="list-group-item list-group-item-action">Settings</a>
-      <a href="logout.php" class="list-group-item list-group-item-action logout-button">Logout</a> <!-- Added Logout Button -->
-    </div>
-  </div>
-    <!-- Middle Div for Displaying Emails -->
-    <div class="col-md-4">
-      <?php
-      // Code to retrieve and display emails goes here
-      ?>
-      <div class="card">
-        <div class="card-header">
-          <h5 class="card-title">Email Subject</h5>
-          <h6 class="card-subtitle mb-2 text-muted">Sender: sender@example.com</h6>
-        </div>
-        <div class="card-body">
-          <p class="card-text">Email content goes here.</p>
-        </div>
+  <div class="row ">
+    <div class="col-md-2 left-div">
+      <div class="list-group">
+        <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+          Inbox
+        </a>
+        <a href="#" class="list-group-item list-group-item-action">Sent</a>
+        <a href="setting.php?username=<?php echo $new_user; ?>" class="list-group-item list-group-item-action">Settings</a>
+        <a href="logout.php" class="list-group-item list-group-item-action logout-button">Logout</a> <!-- Added Logout Button -->
       </div>
-
-      <!-- More emails can be added here -->
+    </div>
+    <!-- Middle Div for Displaying Emails -->
+    <div class="col-md-4 middle-div">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Subject</th>
+            <th scope="col">Sender</th>
+            <th scope="col">Time</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php
+          // Code to retrieve and display emails goes here
+          $tableName = "message_" . $new_user;
+          $selectQuery = "SELECT subject, sender, sending_time FROM `$tableName`";
+          $result = mysqli_query($conn, $selectQuery);
+          while ($row = mysqli_fetch_assoc($result)) {
+            $subject = $row['subject'];
+            $sender = $row['sender'];
+            $sendingTime = $row['sending_time'];
+            echo "<tr>";
+            echo "<td>$subject</td>";
+            echo "<td>$sender</td>";
+            echo "<td>$sendingTime</td>";
+            echo "</tr>";
+          }
+          ?>
+        </tbody>
+      </table>
     </div>
 
     <!-- Right Div for Sending Email -->
-    <div class="col-md-4">
+    <div class="col-md-4 right-div">
       <div class="card">
         <div class="card-header">
           <h5 class="card-title">Compose Email</h5>
@@ -108,8 +133,8 @@ include("config.php");
   </div>
 </div>
 
-  <!-- Bootstrap JS -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
