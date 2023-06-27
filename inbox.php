@@ -168,10 +168,14 @@ include("config.php");
           <h5 class="card-title">Compose Email</h5>
         </div>
         <div class="card-body">
-          <form action="send_email.php" method="post">
+          <form action="mail.php" method="post">
             <div class="mb-3">
               <label for="recipient" class="form-label">Recipient:</label>
-              <input type="email" class="form-control" id="recipient" name="recipient">
+              <input type="text" class="form-control" id="recipient" name="recipient">
+            </div>
+            <div class="mb-3">
+              <label for="recipient" class="form-label">cc:</label>
+              <input type="text" class="form-control" id="recipient" name="cc">
             </div>
             <div class="mb-3">
               <label for="subject" class="form-label">Subject:</label>
