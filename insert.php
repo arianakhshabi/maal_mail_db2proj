@@ -99,7 +99,7 @@ if (empty($username) && empty($password)) {
         VALUES 
         ('system_mail@voovle.com', '$username@voovle.com', '', '$subject', NOW(), '$message')";
         mysqli_query($conn, $insertMessageQuery);
-
+      
 
     } else {
         echo "Error: " . $sql . "<br>" . mysqli_error($conn);

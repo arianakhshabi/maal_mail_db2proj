@@ -55,8 +55,9 @@ include("config.php");
   <div class="container-fluid">
     <a class="navbar-brand" href="index.php">MaaLmail</a>
     <form class="d-flex" role="search" action="search.php" method="GET">
-      <input class="form-control me-2" type="search" placeholder="username" aria-label="Search" name="search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
+    <input class="form-control me-2" type="search" placeholder="username" aria-label="Search" name="search">
+    <input type="hidden" name="searcher" value="<?php echo $_SESSION['username']; ?>">
+    <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
   </div>
 </nav>

@@ -1,14 +1,19 @@
 <?php
 // Retrieve the search query from the GET parameters
 $searchQuery = $_GET['search'];
-
+$searcher = $_GET['searcher'];
 // Perform the necessary database query using the search query
 
 // Assuming you have a database connection established, you can modify the following code to perform the search query
 include("config.php");
 
 // Construct the SQL query with a join between users and hide_users tables
-$sql = "SELECT * FROM users  JOIN hide_users  ON users.username = hide_users.username WHERE users.username LIKE '%$searchQuery%' AND (hide_users.hide_status  = 'unhide')";
+$sql = "SELECT * FROM users  
+        JOIN hide_users ON users.username = hide_users.username 
+        WHERE users.username LIKE '%$searchQuery%' 
+        AND hide_users.hide_status = 'unhide' 
+        AND users.username != '$searcher'";
+
 // Execute the query
 $result = mysqli_query($conn, $sql);
 
@@ -31,7 +36,7 @@ $result = mysqli_query($conn, $sql);
       <tr>
         <th scope="col">#</th>
         <th scope="col">Username</th>
-        <th scope="col">Password</th>
+        
         <th scope="col">Email</th>
         <th scope="col">FirstName</th>
         <th scope="col">LastName</th>
@@ -47,11 +52,19 @@ $result = mysqli_query($conn, $sql);
       if (mysqli_num_rows($result) > 0) {
         // output data of each row
         while ($row = mysqli_fetch_assoc($result)) {
+          $username = $row["username"];
+          $tableName = "message_" . $username;
+
+        
+          // Send a message to the searcher
+          $insertMessageQuery = "INSERT INTO `$tableName` (`sender`, `receivers`, `carboncopy_receivers`, `subject`, `sending_time`, `email_content`) VALUES ('system_mail@voovle.com', '$username@voovle.com', '', 'Your information was viewed', NOW(), 'Your information has been viewed by $searcher')";
+          mysqli_query($conn, $insertMessageQuery);
+          
       ?>
           <tr>
             <th scope="row"><?php echo $row["user_id"] ?></th>
             <td><?php echo $row["username"] ?></td>
-            <td><?php echo $row["password"] ?></td>
+           
             <td><?php echo $row["email_address"] ?></td>
             <td><?php echo $row["first_name"] ?></td>
             <td><?php echo $row["last_name"] ?></td>
