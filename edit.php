@@ -48,10 +48,6 @@ mysqli_close($conn);
         <h3>Edit User <?php echo $uname; ?> Data</h3>
         <input type="hidden" value="<?php echo $user_id;?>">
         <a href="view.php"><button type="button" class="btn btn-dark back" href="login.php">back</button></a>
-        <div class="mb-3">
-        <label for="exampleInputEmail1" class="form-label">Username</label>
-        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username" value="<?php echo $uname; ?>">
-      </div>
 
     <div class="mb-3">
         <label for="exampleInputPassword1" class="form-label">Password</label>

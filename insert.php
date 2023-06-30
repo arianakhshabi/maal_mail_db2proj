@@ -4,7 +4,7 @@
 include("config.php");
 
 $password = $_POST['password'];
-$ramz_pas = hash('sha256', $password); // Hashed password
+$ramz_pas =md5($password);
 
 // Check if password meets the requirements
 if (!preg_match('/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/', $password)) {

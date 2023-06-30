@@ -3,26 +3,30 @@ include("config.php");
 session_start();
 $U_name = $_POST['username'];
 $p_pass = $_POST['password'];
-$ramz_pass = hash('sha256', $p_pass);
 
-$sql = "SELECT * FROM users WHERE username='$U_name' AND password='$ramz_pass'";
-$result = mysqli_query($conn, $sql);
+// Call the stored procedure
+$stmt = mysqli_prepare($conn, "CALL LoginUser(?, ?)");
+mysqli_stmt_bind_param($stmt, "ss", $U_name, $p_pass);
+mysqli_stmt_execute($stmt);
 
-if (mysqli_num_rows($result) > 0) {
-  // Insert the logged-in user into the logged_in_users table
-  $insertSql = "INSERT INTO logged_in_users (username, login_time) VALUES ('$U_name', NOW())";
-  mysqli_query($conn, $insertSql);
+// Bind the result variables
+mysqli_stmt_bind_result($stmt, $status, $redirect_url);
 
-  // Store the user's username in the session
-  $_SESSION["username"] = $U_name;
+// Fetch the results from the stored procedure
+mysqli_stmt_fetch($stmt);
 
-  // Redirect to the users.php page
-  header('Location: inbox.php');
+// Check the status returned by the stored procedure
+if ($status === 'Success') {
+    // Store the user's username in the session
+    $_SESSION["username"] = $U_name;
+
+    // Redirect to the inbox page
+    header("Location: $redirect_url");
+    exit(); // Make sure to add exit() after header redirect
 } else {
-  echo "<div class='alert alert-warning' role='alert'>
-    Please input valid number
-  </div>";
+    echo "<div class='alert alert-warning' role='alert'>$status</div>";
 }
 
+mysqli_stmt_close($stmt);
 mysqli_close($conn);
 ?>
