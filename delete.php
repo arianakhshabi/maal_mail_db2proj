@@ -4,8 +4,8 @@
         include("config.php");
         $user_id=$_GET["id"];
         
-        $sql = "DELETE FROM users WHERE user_id='$user_id'";
-
+        $sql = "CALL delete_user_and_tables($user_id)";
+        
         if (mysqli_query($conn, $sql)) {
           echo "<div class='alert alert-warning' role='alert'>
           one reccord deleted

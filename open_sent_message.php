@@ -8,7 +8,7 @@ if (isset($_GET['id'])) {
   $messageId = $_GET['id'];
   
   // Retrieve the message from the corresponding table
-  $query = "CALL get_message_details(?, ?)";
+  $query = "CALL get_sent_message_details(?, ?)";
   $stmt = mysqli_prepare($conn, $query);
   mysqli_stmt_bind_param($stmt, "si", $new_user, $messageId);
   mysqli_stmt_execute($stmt);

@@ -12,7 +12,7 @@ $codemeli = $_POST['codemeli'];
 $nick_name = $_POST['nickname'];
 $date_of_birth = $_POST["date_of_birth"];
 
-// Call the stored procedure and pass all the parameters
+
 $stmt = mysqli_prepare($conn, "CALL UpdateUserInfo(?, ?, ?, ?, ?, ?, ?, ?, ?)");
 mysqli_stmt_bind_param($stmt, "issssssss", $nUid, $password, $fname, $lname, $tel, $Addres, $codemeli, $nick_name, $date_of_birth);
 

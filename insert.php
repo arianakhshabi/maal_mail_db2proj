@@ -4,7 +4,7 @@
 include("config.php");
 
 $password = $_POST['password'];
-$ramz_pas =md5($password);
+
 
 // Check if password meets the requirements
 if (!preg_match('/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/', $password)) {
@@ -52,58 +52,17 @@ if (empty($username) && empty($password)) {
     </div>";
 } else {
     // Insert new user into the 'users' table
-    $sql = "INSERT INTO users (username, password, email_address, first_name, last_name, date_of_birth, nickname, address, codemeli, tel) 
-            VALUES ('$username', '$ramz_pas', CONCAT('$username', '@voovle.com'), '$first_name', '$last_name', '$date_of_birth', '$nickname', '$address', '$codemeli', '$tel')";
+    $stmt = mysqli_prepare($conn, "CALL sp_register_user(?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    mysqli_stmt_bind_param($stmt, "sssssssss", $username, $password, $first_name, $last_name, $nickname, $address, $codemeli, $tel, $date_of_birth);
 
-    if (mysqli_query($conn, $sql)) {
+    if (mysqli_stmt_execute($stmt)) {
         echo "New record created successfully";
-        $hideStatus = 'unhide'; // Default hide status
-        $hideUsersQuery = "INSERT INTO hide_users (username, hide_status) VALUES ('$username', '$hideStatus')";
-        mysqli_query($conn, $hideUsersQuery);
-
-        // Create 'message+$user_id' table for new user
-        $user_id = mysqli_insert_id($conn);
-        $tableName = "message_" . $username;
-        $sqlCreateTable = "CREATE TABLE IF NOT EXISTS `$tableName` (
-            `id` INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-            `sender` VARCHAR(255) NOT NULL,
-            `receivers` VARCHAR(255) NOT NULL,
-            `carboncopy_receivers` VARCHAR(255),
-            `subject` VARCHAR(255) NOT NULL,
-            `sending_time` DATETIME NOT NULL,
-            `email_content` TEXT NOT NULL
-        )";
-        mysqli_query($conn, $sqlCreateTable);
-
-        // Create 'sent_message' table for new user
-        $tableName2 = "sent_message_" . $username;
-        $sqlCreateSentTable = "CREATE TABLE IF NOT EXISTS `$tableName2` (
-            `id` INT(11) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-            `sender` VARCHAR(255) NOT NULL,
-            `receivers` VARCHAR(255) NOT NULL,
-            `carboncopy_receivers` VARCHAR(255),
-            `subject` VARCHAR(255) NOT NULL,
-            `sending_time` DATETIME NOT NULL,
-            `email_content` TEXT NOT NULL
-        )";
-        mysqli_query($conn, $sqlCreateSentTable);
-
-        // Send welcome email
-        $subject = "Welcome to MaalMail";
-        $message = "Hello $username, welcome to MaalMail!";
-        $headers = "From: your-email@example.com"; // Replace with your email address
-
-        // Use PHP's mail function to send the email
-        $insertMessageQuery = "INSERT INTO `$tableName` 
-        (`sender`, `receivers`, `carboncopy_receivers`, `subject`, `sending_time`, `email_content`) 
-        VALUES 
-        ('system_mail@voovle.com', '$username@voovle.com', '', '$subject', NOW(), '$message')";
-        mysqli_query($conn, $insertMessageQuery);
-      
-
     } else {
-        echo "Error: " . $sql . "<br>" . mysqli_error($conn);
+        echo "Error updating record: " . mysqli_error($conn);
     }
+
+    mysqli_stmt_close($stmt);
+
     header('Location: login.php');
 }
 ?>

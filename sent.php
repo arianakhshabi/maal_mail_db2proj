@@ -120,10 +120,10 @@ include("config.php");
             echo "<td>$sendingTime</td>";
             echo "<td>
                     <button class='btn btn-primary'>
-                      <a class='text-light text-decoration-none' target='_blank' href='open_messeage.php?id=$messageId'>Open</a>
+                      <a class='text-light text-decoration-none' target='_blank' href='open_sent_message.php?id=$messageId'>Open</a>
                     </button>
                     <button class='btn btn-danger'>
-                      <a class='text-light text-decoration-none' target='_blank' href='delete_message.php?id=$messageId'>Delete</a>
+                      <a class='text-light text-decoration-none' target='_blank' href='delete_sent_message.php?id=$messageId'>Delete</a>
                     </button>
                   </td>";
             echo "</tr>";

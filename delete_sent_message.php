@@ -7,7 +7,7 @@ if (isset($_GET['id'])) {
   $messageId = $_GET['id'];
   
 
-  $deleteQuery = "CALL delete_message('$new_user', $messageId)";
+  $deleteQuery = "CALL delete_sent_message('$new_user', $messageId)";
   $result = mysqli_query($conn, $deleteQuery);
 
 
