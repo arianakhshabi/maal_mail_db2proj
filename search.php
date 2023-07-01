@@ -3,20 +3,11 @@
 $searchQuery = $_GET['search'];
 $searcher = $_GET['searcher'];
 // Perform the necessary database query using the search query
-
-// Assuming you have a database connection established, you can modify the following code to perform the search query
 include("config.php");
 
 // Construct the SQL query with a join between users and hide_users tables
-$sql = "SELECT * FROM users  
-        JOIN hide_users ON users.username = hide_users.username 
-        WHERE users.username LIKE '%$searchQuery%' 
-        AND hide_users.hide_status = 'unhide' 
-        AND users.username != '$searcher'";
-
-// Execute the query
-$result = mysqli_query($conn, $sql);
-
+$sql2 = "CALL show_SearchUsers('$searchQuery', '$searcher')";
+$result2 = mysqli_query($conn, $sql2);
 ?>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
@@ -24,9 +15,10 @@ $result = mysqli_query($conn, $sql);
 <nav class="navbar" style="background-color: #e3f2fd;">
   <div class="container-fluid">
     <a class="navbar-brand" href="index.php">MaaLmail</a>
-    <form class="d-flex" role="search" method="GET" action="search.php">
-      <input class="form-control me-2" type="search" placeholder="username" aria-label="Search" name="search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
+    <form class="d-flex" role="search" action="search.php" method="GET">
+    <input class="form-control me-2" type="search" placeholder="username" aria-label="Search" name="search">
+    <input type="hidden" name="searcher" value="<?php echo $_SESSION['username']; ?>">
+    <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
   </div>
 </nav>
@@ -36,54 +28,47 @@ $result = mysqli_query($conn, $sql);
       <tr>
         <th scope="col">#</th>
         <th scope="col">Username</th>
-        
         <th scope="col">Email</th>
         <th scope="col">FirstName</th>
         <th scope="col">LastName</th>
         <th scope="col">DateofBirth</th>
         <th scope="col">created_at</th>
         <th scope="col">updated_at</th>
-        <th scope="col">Edit</th>
-        <th scope="col">Delete</th>
+       
       </tr>
     </thead>
     <tbody>
       <?php
-      if (mysqli_num_rows($result) > 0) {
-        // output data of each row
-        while ($row = mysqli_fetch_assoc($result)) {
-          $username = $row["username"];
-          $tableName = "message_" . $username;
+      if (mysqli_num_rows($result2) > 0) {
+        // Initialize a row counter
+        $rowNumber = 1;
 
-        
-          // Send a message to the searcher
-          $insertMessageQuery = "INSERT INTO `$tableName` (`sender`, `receivers`, `carboncopy_receivers`, `subject`, `sending_time`, `email_content`) VALUES ('system_mail@voovle.com', '$username@voovle.com', '', 'Your information was viewed', NOW(), 'Your information has been viewed by $searcher')";
-          mysqli_query($conn, $insertMessageQuery);
-          
-      ?>
-          <tr>
-            <th scope="row"><?php echo $row["user_id"] ?></th>
-            <td><?php echo $row["username"] ?></td>
-           
-            <td><?php echo $row["email_address"] ?></td>
-            <td><?php echo $row["first_name"] ?></td>
-            <td><?php echo $row["last_name"] ?></td>
-            <td><?php echo $row["date_of_birth"] ?></td>
-            <td><?php echo $row["created_at"] ?></td>
-            <td><?php echo $row["updated_at"] ?></td>
-            <td><button type="button" class="btn btn-outline-warning"><a class="text-warning text-decoration-none" target="_blank" href="edit.php?id=<?php echo $row["user_id"] ?>">Edit</a></button></td>
-            <td><button type="button" class="btn btn-danger"><a class="text-light text-decoration-none" target="_blank" href="delete.php?id=<?php echo $row["user_id"] ?>">Delete</a></button></td>
-          </tr>
-        <?php
+        // output data of each row
+        while ($row = mysqli_fetch_assoc($result2)) {
+          // Display the data for each row in the table
+          echo "<tr>";
+          echo "<td>" . $rowNumber . "</td>";
+          echo "<td>" . $row["username"] . "</td>";
+          echo "<td>" . $row["email_address"] . "</td>";
+          echo "<td>" . $row["first_name"] . "</td>";
+          echo "<td>" . $row["last_name"] . "</td>";
+          echo "<td>" . $row["date_of_birth"] . "</td>";
+          echo "<td>" . $row["created_at"] . "</td>";
+          echo "<td>" . $row["updated_at"] . "</td>";
+          echo "</tr>";
+
+          // Increment the row counter for the next row
+          $rowNumber++;
         }
+
+        // Display the total number of results found
       } else {
         echo "
         <svg xmlns='http://www.w3.org/2000/svg' style='display: none;'>
           <symbol id='exclamation-triangle-fill' viewBox='0 0 16 16'>
-            <path d='M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z'/>
+            <!-- Your SVG code for the exclamation-triangle icon -->
           </symbol>
         </svg>
-  
         <div class='alert alert-warning d-flex align-items-center' role='alert'>
           <svg class='bi flex-shrink-0 me-2' role='img' aria-label='Warning:'><use xlink:href='#exclamation-triangle-fill'/></svg>
           <div>

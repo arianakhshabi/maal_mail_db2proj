@@ -53,8 +53,9 @@ include("config.php");
   <div class="container-fluid">
     <a class="navbar-brand" href="index.php">MaaLmail</a>
     <form class="d-flex" role="search" action="search.php" method="GET">
-      <input class="form-control me-2" type="search" placeholder="username" aria-label="Search" name="search">
-      <button class="btn btn-outline-success" type="submit">Search</button>
+    <input class="form-control me-2" type="search" placeholder="username" aria-label="Search" name="search">
+    <input type="hidden" name="searcher" value="<?php echo $_SESSION['username']; ?>">
+    <button class="btn btn-outline-success" type="submit">Search</button>
     </form>
   </div>
 </nav>
@@ -92,22 +93,24 @@ include("config.php");
           $currentPage = isset($_GET['page']) ? $_GET['page'] : 1; // Current page number
           $order = isset($_GET['order']) ? $_GET['order'] : 'asc'; // Current order (asc or desc)
 
-          // Calculate the starting row for the current page
-          $startingRow = ($currentPage - 1) * $rowsPerPage;
+          
+          // Check connection
+          if (!$conn) {
+              die("Connection failed: " . mysqli_connect_error());
+          }
+          $tableName='sent_message_'.$new_user;
+          $sql2 = "CALL GetRowCount('$tableName', @rowCount)";
+          mysqli_query($conn, $sql2);
 
-          // Retrieve and display sent emails with pagination and ordering
-          $tableName = "sent_message_" . $new_user;
-          $selectQuery = "SELECT id, sender, receivers, carboncopy_receivers, subject, sending_time FROM `$tableName` ORDER BY sending_time $order";
+          // Fetch the output parameter value
+          $result2 = mysqli_query($conn, "SELECT @rowCount as rowCount");
+          $row = mysqli_fetch_assoc($result2);
+          $totalRows = $row['rowCount'];
+                    
+          $sql = "CALL GetSentEmails('$new_user', $currentPage, $rowsPerPage, '$order')";
 
-
-          $result = mysqli_query($conn, $selectQuery);
-
-          // Get total number of rows
-          $totalRows = mysqli_num_rows($result);
-
-          // Adjust the query to include pagination
-          $selectQuery .= " LIMIT $startingRow, $rowsPerPage";
-          $result = mysqli_query($conn, $selectQuery);
+          $result = mysqli_query($conn, $sql);
+          
 
           while ($row = mysqli_fetch_assoc($result)) {
             $messageId = $row['id'];

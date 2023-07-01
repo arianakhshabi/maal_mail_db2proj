@@ -103,16 +103,19 @@ include("config.php");
 
       // Retrieve and display emails with pagination and ordering
       $tableName = "message_" . $new_user;
-      $selectQuery = "SELECT id, subject, sender, sending_time FROM `$tableName` ORDER BY sending_time $order";
-      $result = mysqli_query($conn, $selectQuery);
+      $sql2 = "CALL GetRowCount('$tableName', @rowCount)";
+      mysqli_query($conn, $sql2);
 
-      // Get total number of rows
-      $totalRows = mysqli_num_rows($result);
+      // Fetch the output parameter value
+      $result2 = mysqli_query($conn, "SELECT @rowCount as rowCount");
+      $row = mysqli_fetch_assoc($result2);
+      $totalRows = $row['rowCount'];
 
       // Adjust the query to include pagination
-      $selectQuery .= " LIMIT $startingRow, $rowsPerPage";
-      $result = mysqli_query($conn, $selectQuery);
+      $sql = "CALL GetEmails('$new_user', $currentPage, $rowsPerPage, '$order')";
 
+      $result = mysqli_query($conn, $sql);
+      
       while ($row = mysqli_fetch_assoc($result)) {
         $messageId = $row['id'];
         $subject = $row['subject'];
@@ -140,10 +143,8 @@ include("config.php");
   <nav aria-label="Email Pagination">
     <ul class="pagination justify-content-center">
       <?php
-      // Calculate the total number of pages
       $totalPages = ceil($totalRows / $rowsPerPage);
 
-      // Display the pagination links
       for ($i = 1; $i <= $totalPages; $i++) {
         $activeClass = ($i == $currentPage) ? "active" : "";
         echo "<li class='page-item $activeClass'><a class='page-link' href='inbox.php?page=$i&order=$order'>$i</a></li>";
