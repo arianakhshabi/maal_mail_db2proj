@@ -121,10 +121,12 @@ include("config.php");
         $subject = $row['subject'];
         $sender = $row['sender'];
         $sendingTime = $row['sending_time'];
+        $seenStatus = $row['seen_status'];
         echo "<tr>";
         echo "<td>$subject</td>";
         echo "<td>$sender</td>";
         echo "<td>$sendingTime</td>";
+        echo "<td>$seenStatus</td>";
         echo "<td>
                 <button class='btn btn-primary'>
                   <a class='text-light text-decoration-none' target='_blank' href='open_messeage.php?id=$messageId'>Open</a>
